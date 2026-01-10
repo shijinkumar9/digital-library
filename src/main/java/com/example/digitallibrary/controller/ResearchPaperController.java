@@ -3,12 +3,12 @@ package com.example.digitallibrary.controller;
 import com.example.digitallibrary.dto.ResearchPaperRequest;
 import com.example.digitallibrary.dto.ResearchPaperResponse;
 import com.example.digitallibrary.entity.ResearchPaper;
+import com.example.digitallibrary.scraper.ResearchPaperScraper;
 import com.example.digitallibrary.service.ResearchPaperService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class ResearchPaperController {
 
     private final ResearchPaperService service;
+    private final ResearchPaperScraper scraper;
 
     // ADMIN ONLY
     @PreAuthorize("hasRole('ADMIN')")
@@ -54,5 +55,23 @@ public class ResearchPaperController {
                 .publicationDate(paper.getPublicationDate())
                 .sourceUrl(paper.getSourceUrl())
                 .build();
+    }
+
+    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @GetMapping("/search")
+    public List<ResearchPaperResponse> searchPapers(
+            @RequestParam String keyword
+    ) {
+        return service.searchPapers(keyword)
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/scrape")
+    public String triggerScraping() {
+        scraper.scrapeWithRetry("https://arxiv.org");
+        return "Scraping triggered";
     }
 }

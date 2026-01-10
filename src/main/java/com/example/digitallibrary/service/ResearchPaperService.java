@@ -37,4 +37,9 @@ public class ResearchPaperService {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Paper not found"));
     }
+
+    public List<ResearchPaper> searchPapers(String keyword) {
+        return repository.searchByKeyword(keyword);
+    }
+
 }
