@@ -15,4 +15,6 @@ public class ResearchPaperResponse {
     private String abstractText;
     private LocalDate publicationDate;
     private String sourceUrl;
+    private String aiSummary;
+
 }

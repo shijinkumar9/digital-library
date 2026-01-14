@@ -6,6 +6,7 @@ import lombok.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+
 @Entity
 @Table(name = "research_papers")
 @Getter
@@ -34,4 +35,8 @@ public class ResearchPaper {
     private String sourceUrl;
 
     private LocalDateTime createdAt;
+
+    @Column(length = 3000)
+    private String aiSummary;
+
 }

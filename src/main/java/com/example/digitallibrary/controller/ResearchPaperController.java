@@ -52,6 +52,7 @@ public class ResearchPaperController {
                 .title(paper.getTitle())
                 .authors(paper.getAuthors())
                 .abstractText(paper.getAbstractText())
+                .aiSummary(paper.getAiSummary())
                 .publicationDate(paper.getPublicationDate())
                 .sourceUrl(paper.getSourceUrl())
                 .build();

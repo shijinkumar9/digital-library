@@ -20,3 +20,7 @@ server:
 jwt:
   secret: yd1kpDPKxbt7DhPMGotQm1D2Qtul8Eb+hwSOD4Xw7NA=
   expiration: 3600000   # 1 hour in milliseconds
+
+gemini:
+  api-key: AIzaSyD255F0t7a9gdd957qVJFbME7uzHoEDHHI
+  model: gemini-3-flash-preview
